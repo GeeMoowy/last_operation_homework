@@ -17,4 +17,4 @@ def get_date(my_date: str) -> str:
     """Функция принимает строку с датой и переформатирует в 'ДД.ММ.ГГГГ'"""
     date_list = my_date[:10].split("-")
     year, month, day = date_list[0], date_list[1], date_list[2]
-    return f'"{day}.{month}.{year}"'
+    return f'{day}.{month}.{year}'
