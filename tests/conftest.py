@@ -1,23 +1,25 @@
+from typing import Any
+
 import pytest
 
 
 @pytest.fixture
-def card_info():
+def card_info() -> int:
     return 7000792289606361
 
 
 @pytest.fixture
-def account_info():
+def account_info() -> int:
     return 73654108430135874305
 
 
 @pytest.fixture
-def full_date():
+def full_date() -> str:
     return "2024-03-11T02:26:18.671407"
 
 
 @pytest.fixture
-def my_list_of_dir():
+def my_list_of_dir() -> list[dict[str, Any]]:
     return [
         {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
         {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
