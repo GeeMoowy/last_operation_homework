@@ -8,7 +8,8 @@ def filter_by_currency(transactions_list: list[dict[str, Any]], currency: str) -
 
 def transaction_descriptions(transactions_list: list[dict[str, Any]]) -> Iterator[str]:
     """Функция принимает список словарей транзакция и возвращает описание каждой операции по очереди"""
-    return map(lambda x: x['description'], transactions_list)
+    for transaction in transactions_list:
+        yield transaction["description"]
 
 
 def card_number_generator(start, finish):
