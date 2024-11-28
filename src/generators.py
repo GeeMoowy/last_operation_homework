@@ -1,19 +1,33 @@
 from typing import Any, Iterator
 
 
-def filter_by_currency(transactions_list: list[dict[str, Any]], currency: str) -> Iterator[dict[str, Any]]:
+def filter_by_currency(transactions_list: list[dict[str, Any]], currency: str) -> Iterator[dict[str, Any]] | str:
     """Функция принимает список словарей и возвращает итератор словарей отфильтрованный по заданной валюте"""
-    return filter(lambda x: x["operationAmount"]["currency"]["name"] == currency, transactions_list)
+    transaction_by_currency = list(filter(lambda x: x.get("operationAmount").get("currency").get("code") == currency,
+                                          transactions_list))
+    try:
+        for transaction in transaction_by_currency:
+            yield transaction
+    except StopIteration:
+        if not transactions_list:
+            return "Нет доступных транзакций"
 
 
-def transaction_descriptions(transactions_list: list[dict[str, Any]]) -> Iterator[str]:
+def transaction_descriptions(transactions_list: list[dict[str, Any]]) -> Iterator[str] | str:
     """Функция принимает список словарей транзакция и возвращает описание каждой операции по очереди"""
-    for transaction in transactions_list:
-        yield transaction["description"]
+    try:
+        for transaction in transactions_list:
+            yield transaction["description"]
+    except StopIteration:
+        if not transactions_list:
+            return "Нет доступных транзакций"
 
 
-def card_number_generator(start, finish):
-    for numb in range(start, finish):
+def card_number_generator(start: int, finish: int) -> Iterator[str] | str:
+    """Функция принимает начальное и конечное значение для генерации диапазона номеров банковских карт"""
+    if start < 0 or finish > 9999_9999_9999_9999:
+        raise ValueError("Неверное значение диапазона") # Вызываем исключение, если числа вне диапазона
+    for numb in range(start, finish +1):
         card_numb = str(numb)
         while len(card_numb) < 16:
             card_numb = "0" + card_numb
