@@ -115,15 +115,15 @@ def list_of_transactions() -> list[dict[str, Any]]:
 
 
 @pytest.fixture
-def list_of_transactions_empty():
+def list_of_transactions_empty() -> list[None]:
     return []
 
 
 @pytest.fixture
-def start():
+def start() -> int:
     return 1
 
 
 @pytest.fixture
-def finish():
+def finish() -> int:
     return 1
