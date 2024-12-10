@@ -1,16 +1,10 @@
-from urllib import response
+from unittest.mock import mock_open, patch
 
-import pytest
-from unittest.mock import patch, mock_open, Mock
-import json
-
-import requests
-
-from src.utils import transactions_list, amount_transaction
+from src.utils import amount_transaction, transactions_list
 
 
 @patch("builtins.open", new_callable=mock_open, read_data='[{"id": 441945886}]')
-def test_transactions_list(mock_file):
+def test_transactions_list(mock_file) -> None:
     transactions = transactions_list("data/operations.json")
     assert transactions == [{"id": 441945886}]
 
@@ -30,7 +24,13 @@ def test_transactions_list_incorrect(mock_file):
 def test_amount_transaction_rub(my_transaction_rub):
     assert amount_transaction(my_transaction_rub) == 31957.58
 
-res = {'success': True, 'query': {'from': 'USD', 'to': 'RUB', 'amount': 8221.37}, 'info': {'timestamp': 1733867463, 'rate': 103.045091}, 'date': '2024-12-10', 'result': 847171.819795}
+
+res = {
+    'success': True, 'query':
+        {'from': 'USD', 'to': 'RUB', 'amount': 8221.37
+         }, 'info':
+        {'timestamp': 1733867463, 'rate': 103.045091
+         }, 'date': '2024-12-10', 'result': 847171.819795}
 
 
 @patch('requests.get')

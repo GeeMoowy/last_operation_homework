@@ -5,7 +5,6 @@ from typing import Any
 import requests
 from dotenv import load_dotenv
 
-
 load_dotenv()
 apilayer_key = os.getenv("API_KEY")
 
