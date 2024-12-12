@@ -1,6 +1,5 @@
 import logging
 
-
 logger = logging.getLogger('masks')
 logger.setLevel(logging.DEBUG)
 file_handler = logging.FileHandler('logs/masks.log', 'w', encoding='UTF-8')
@@ -12,7 +11,7 @@ logger.addHandler(file_handler)
 def get_mask_card_number(number_card: int) -> str:
     """функция принимает номер карты и возвращает маску номера карты в заданном формате"""
     logger.info(f'Функция {get_mask_card_number.__name__} запущена')
-    if type(number_card) != int:
+    if type(number_card) is not int:
         logger.error(f'Некорректный тип данных: {type(number_card)}')
         raise TypeError('Ошибка! Некорректный тип данных, введите целое число')
     elif len(str(number_card)) != 16:
@@ -26,7 +25,7 @@ def get_mask_card_number(number_card: int) -> str:
 def get_mask_account(account_number: int) -> str:
     """функция принимает номер счета и возвращает маску номера счета в заданном формате"""
     logger.info('Функция запущена')
-    if type(account_number) != int:
+    if type(account_number) is not int:
         logger.error('Некорректный тип данных')
         raise TypeError('Ошибка! Некорректный тип данных, введите целое число')
     elif len(str(account_number)) != 14:
@@ -35,6 +34,3 @@ def get_mask_account(account_number: int) -> str:
     mask_account = str(account_number)
     logger.info('Функция корректно завершила работу')
     return '**' + mask_account[-4:]
-
-
-
