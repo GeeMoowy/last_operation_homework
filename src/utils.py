@@ -3,6 +3,7 @@ import logging
 import os
 from json import JSONDecodeError
 from typing import Any
+
 import requests
 from dotenv import load_dotenv
 
@@ -36,7 +37,7 @@ def transactions_list(file_path: str) -> list[dict[str, Any]]:
 
 def amount_transaction(transaction: dict[str, Any]) -> float:
     try:
-        logger.info(f'Проверка значения на код валюты')
+        logger.info('Проверка значения на код валюты')
         if transaction["operationAmount"]["currency"]["code"] != "RUB":
             logger.info(f'Значение в {transaction["operationAmount"]["currency"]["code"]}, обращение к API')
             url = "https://api.apilayer.com/exchangerates_data/convert"
