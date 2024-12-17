@@ -31,7 +31,12 @@ def get_reading_csv(path_to_csv: Union[str, Path]) -> list[dict[str, Any]]:
 
 
 def get_reading_exel(path_to_exel: Union[str, Path]) -> list[dict[str, Any]]:
-    df = pd.read_excel(path_to_exel)
-    dict_list = df.to_dict(orient='records')
-    return dict_list
+    try:
+        df = pd.read_excel(path_to_exel)
+        dict_list = df.to_dict(orient='records')
+        return dict_list
+    except FileNotFoundError as e:
+        logger.info(f'Файл не найден с ошибкой {e}')
+        return []
+
 

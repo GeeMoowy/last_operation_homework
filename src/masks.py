@@ -28,7 +28,7 @@ def get_mask_account(account_number: int) -> str:
     if type(account_number) is not int:
         logger.error('Некорректный тип данных')
         raise TypeError('Ошибка! Некорректный тип данных, введите целое число')
-    elif len(str(account_number)) != 14:
+    elif len(str(account_number)) != 20:
         logger.error('Некорректное значение')
         raise ValueError('Ошибка! Номер счета должен содержать 14 цифр')
     mask_account = str(account_number)
