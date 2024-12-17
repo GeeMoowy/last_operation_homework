@@ -1,7 +1,7 @@
 import csv
 import logging
 from pathlib import Path
-from typing import Union, Any
+from typing import Union, Any, Hashable
 import pandas as pd
 
 
@@ -14,6 +14,7 @@ logger.addHandler(file_handler)
 
 
 def get_reading_csv(path_to_csv: Union[str, Path]) -> list[dict[str, Any]]:
+    """Функция читает csv-файл и возвращает список словарей транзакций"""
     try:
         logger.info(f'Читаем файл: {path_to_csv}')
         with open(path_to_csv, encoding='UTF-8') as csv_file:
@@ -29,8 +30,8 @@ def get_reading_csv(path_to_csv: Union[str, Path]) -> list[dict[str, Any]]:
         return []
 
 
-
-def get_reading_exel(path_to_exel: Union[str, Path]) -> list[dict[str, Any]]:
+def get_reading_exel(path_to_exel: Union[str, Path]) -> list[dict[Hashable, Any]] | list[Any]:
+    """Функция читает excel-файл и возвращает список словарей транзакций"""
     try:
         df = pd.read_excel(path_to_exel)
         dict_list = df.to_dict(orient='records')
@@ -38,5 +39,3 @@ def get_reading_exel(path_to_exel: Union[str, Path]) -> list[dict[str, Any]]:
     except FileNotFoundError as e:
         logger.info(f'Файл не найден с ошибкой {e}')
         return []
-
-
