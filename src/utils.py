@@ -1,7 +1,8 @@
 import json
 import os
 from json import JSONDecodeError
-from typing import Any
+from pathlib import Path
+from typing import Any, Union
 import logging
 import requests
 from dotenv import load_dotenv
@@ -18,7 +19,7 @@ file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)
 
 
-def transactions_list(file_path: str) -> list[dict[str, Any]]:
+def transactions_list(file_path: Union[str, Path]) -> list[dict[str, Any]]:
     if os.path.isfile(file_path):
         logger.info(f'Чтение и преобразование файла {file_path}')
         with open(file_path, "r", encoding="utf-8") as json_file:
