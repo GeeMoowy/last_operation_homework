@@ -12,10 +12,12 @@ PATH_TO_DATA = Path(PATH_TO_ROOT, 'data')
 
 
 def choice_and_read(user_point: str) -> list[dict[str, Any]]:
+    """Функция принимает выбор номера операции и считывает файл,
+    соответствующий номеру операции. Так же приводит JSON файл к общему виду"""
     if user_point == '1':
         print('Для обработки выбран JSON-файл.')
         json_path = Path(PATH_TO_DATA, 'operations.json')
-        list_of_transactions =  transactions_list(json_path)
+        list_of_transactions = transactions_list(json_path)
         formater_list = []
         for transaction in list_of_transactions:
             if transaction == {}:
@@ -43,7 +45,8 @@ def choice_and_read(user_point: str) -> list[dict[str, Any]]:
         return get_reading_exel(excel_path)
 
 
-def choice_and_filter_by_state(all_transactions):
+def choice_and_filter_by_state(all_transactions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Функция принимает список словарей и фильтрует по выбранному статусу операции"""
     print('Введите статус, по которому необходимо выполнить фильтрацию.\n'
           'Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING: ')
     while True:
@@ -55,7 +58,9 @@ def choice_and_filter_by_state(all_transactions):
             print(f'Статус операции "{user_status}" недоступен.')
 
 
-def choice_sort_by_date(list_for_sort):
+def choice_sort_by_date(list_for_sort: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Функция сортирует по дате проведенной операции по возрастанию и убыванию,
+    в зависимости от выбора пользователя"""
     while True:
         sort_data = input('Отсортировать операции по дате? Да/Нет: ')
         if sort_data.lower() == "да":
@@ -73,7 +78,8 @@ def choice_sort_by_date(list_for_sort):
             print('Введите только значения: да или нет')
 
 
-def choice_and_filter_by_currency(list_for_filter):
+def choice_and_filter_by_currency(list_for_filter: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Функция принимает список словарей и фильтрует по валюте"""
     while True:
         user_currency = input('Выводить только рублевые транзакции? Да/Нет: ')
         if user_currency.lower() == 'да':
@@ -81,14 +87,17 @@ def choice_and_filter_by_currency(list_for_filter):
             gen_filtered_by_rub = filter_by_currency(list_for_filter, 'RUB')
             for item in gen_filtered_by_rub:
                 filtered_by_rub.append(item)
+            print(filtered_by_rub)
             return filtered_by_rub
         elif user_currency.lower() == 'нет':
+            print(list_for_filter)
             return list_for_filter
         else:
             print('Введите только значения: да или нет')
 
 
-def choice_and_filter_by_description(list_for_filter):
+def choice_and_filter_by_description(list_for_filter: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Функция принимает список словарей и фильтрует по введенному пользователем слову в описании операции"""
     input_answer = input('Отфильтровать список транзакций по определенному слову в описании? Да/Нет: ')
     if input_answer.lower() == 'да':
         user_word = input('Введите описание операции(например: Перевод организации):')
@@ -97,7 +106,8 @@ def choice_and_filter_by_description(list_for_filter):
         return list_for_filter
 
 
-def main():
+def main() -> None:
+    """Функция отвечает за основную логику и связывает функционал между собой"""
     print('''Привет! Добро пожаловать в программу работы с банковскими транзакциями.\nВыберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла\n2. Получить информацию о транзакциях из CSV-файла
 3. Получить информацию о транзакциях из XLSX-файла''')
@@ -123,7 +133,3 @@ def main():
             print(f"{mask_account_card(transaction['from'])} -> {mask_account_card(transaction['to'])}")
         print(f"Сумма: {transaction['amount']} {transaction['currency_name']}")
         print()
-
-
-if __name__ == "__main__":
-    main()
