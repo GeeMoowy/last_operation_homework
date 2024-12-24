@@ -5,9 +5,13 @@ from typing import Union, Any, Hashable
 import pandas as pd
 
 
+PATH_TO_ROOT = Path(__file__).parent.parent
+PATH_TO_FILE = Path(PATH_TO_ROOT, 'logs', 'reading_files.log')
+
+
 logger = logging.getLogger('reading_files')
 logger.setLevel(logging.DEBUG)
-file_handler = logging.FileHandler('logs/reading_files.log', 'w', encoding='UTF-8')
+file_handler = logging.FileHandler(PATH_TO_FILE, 'w', encoding='UTF-8')
 file_formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s: %(message)s')
 file_handler.setFormatter(file_formatter)
 logger.addHandler(file_handler)

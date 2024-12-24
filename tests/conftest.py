@@ -1,16 +1,15 @@
 from typing import Any
-
 import pytest
 
 
 @pytest.fixture
-def card_info() -> int:
-    return 7000792289606361
+def card_info() -> str:
+    return '7000792289606361'
 
 
 @pytest.fixture
-def account_info() -> int:
-    return 73654108430135874305
+def account_info() -> str:
+    return '73654108430135874305'
 
 
 @pytest.fixture
@@ -165,3 +164,33 @@ def my_transaction_usd():
         "from": "MasterCard 7158300734726758",
         "to": "Счет 35383033474447895560"
             }
+
+
+@pytest.fixture
+def list_of_category():
+    return ['Перевод организации', 'Перевод со счета на счет', 'Перевод с карты на карту']
+
+
+@pytest.fixture
+def list_of_transaction_modified():
+    return [{'id': 441945886,
+             'state': 'EXECUTED',
+             'date': '2019-08-26T10:50:58.294041',
+             'amount': '31957.58',
+             'currency_name': 'руб.',
+             'currency_code': 'RUB',
+             'from': 'Maestro 1596837868705199',
+             'to': 'Счет 64686473678894779589',
+             'description': 'Перевод организации'
+             },
+            {'id': 41428829,
+             'state': 'EXECUTED',
+             'date': '2019-07-03T18:35:29.512364',
+             'amount': '8221.37',
+             'currency_name': 'USD',
+             'currency_code': 'USD',
+             'from': 'MasterCard 7158300734726758',
+             'to': 'Счет 35383033474447895560',
+             'description': 'Перевод организации'
+             }
+            ]
